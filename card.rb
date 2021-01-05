@@ -1,9 +1,9 @@
 class Card
     attr_reader :face_up , :letter
 
-    def initialize
+    def initialize(letter)
         @face_up = false
-        @letter = ("A".."Z").to_a.sample
+        @letter = letter
     end
 
     def hide
@@ -11,7 +11,7 @@ class Card
     end
 
     def reveal
-        face_up = true
+        @face_up = true
     end
 
     def ==(other)
@@ -23,7 +23,7 @@ end
 
 
 if __FILE__ == $PROGRAM_NAME
-    card = Card.new
+    card = Card.new("A")
 #    p card.hide
     # p card.reveal
     # p card.face_up

@@ -4,17 +4,18 @@ class Board
     attr_reader :grid
 
     def initialize
-        card = []
+        grid_letters = []
         letters = ("A".."Z").to_a.shuffle
 
-        while card.length <= 10
+        while grid_letters.length <= 10
             used_letter = letters.pop
-            2.times{card << used_letter}
+            2.times{grid_letters << used_letter}
         end
-        card.shuffle!
+        grid_letters.shuffle!
         @grid = []
-        3.times { @grid << card.slice!(0,3)}
-      
+        3.times { @grid << grid_letters.slice!(0,3).map{|char| Card.new(char)} }
+        
+        
     end
 
     def [](row,col)
@@ -29,17 +30,20 @@ class Board
         grid.each do |row|
             puts row.join(" ")
         end
-     
+        return nil
     end
 
-
+    def display
+        @grid.each do |row|
+            puts row.map{ |card| card.face_up ? card.letter : "_" }.join(" ")
+        end
+    end
 end
 
 if __FILE__ == $PROGRAM_NAME
-   b = Board.new
-   p b.grid
-   b[0,1] = "donkey"
-   p b[0, 1]
-
-
+    b = Board.new
+    # p b.grid
+    # p b[0, 1]
+#    p Board.print(b.grid)
+    b.display
 end
